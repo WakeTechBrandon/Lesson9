@@ -1,0 +1,19 @@
+import requests
+
+presidents = ["Abraham Lincoln", "Lyndon B. Johnson", "Donald Trump", "Thomas Jefferson", "George Washington", "Chester A. Arthur", "Franklin D. Roosevelt", "George H. W. Bush", "Bill Clinton", "Andrew Jackson", "John F. Kennedy", "Ronald Reagan", "Barack Obama", "James Monroe", "John Tyler", "James Buchanan", "James A. Garfield", "Warren G. Harding", "Gerald Ford", "William Howard Taft", "Herbert Hoover", "Richard Nixon", "George W. Bush", "Grover Cleveland", "Woodrow Wilson", "Dwight D. Eisenhower", "Franklin Pierce", "Andrew Johnson", "Theodore Roosevelt", "Calvin Coolidge", "Jimmy Carter", "Millard Fillmore", "Harry S. Truman", "Rutherford B. Hayes", "William Henry Harrison", "James K. Polk", "Zachary Taylor", "Ulysses S. Grant", "John Quincy Adams", "John Adams", "William McKinley", "Martin Van Buren", "Benjamin Harrison", "James Madison"]
+url_ddg = "https://api.duckduckgo.com"
+
+
+def test_ddg0():
+    resp = requests.get(url_ddg + "/?q=presidents%20of%20the%20united%20states&format=json")
+    rsp_data = resp.json()
+    for president in presidents:
+        found = False
+        for topic in rsp_data["RelatedTopics"]:
+            if president in topic["Text"]:
+                found = True
+                break;
+        if not found:
+            return False
+    return True
+assert(test_ddg0)
